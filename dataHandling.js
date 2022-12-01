@@ -1,13 +1,13 @@
 // GET data using XMLHttpRequest
 function getData() {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
+    xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
     xhr.send();
     xhr.responseType = "json";
 
     xhr.onload = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.response);
+            console.log("Successful GET: ", xhr.response);
         } else {
             console.log(`Error: ${xhr.status}`);
         }
@@ -20,7 +20,7 @@ function postData() {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "https://jsonplaceholder.typicode.com/posts");
 
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     const payload = JSON.stringify({
         title: "Hello World",
         body: "POST Request",
@@ -29,7 +29,7 @@ function postData() {
 
     xhr.onload = () => {
         if (xhr.readyState == 4 && xhr.status == 201) {
-            console.log(JSON.parse(xhr.responseText));
+            console.log("Successful POST: ", JSON.parse(xhr.responseText));
         } else {
             console.log(`Error: ${xhr.status}`);
         }
@@ -41,11 +41,11 @@ function postData() {
 // DELETE data using XMLHttpRequest
 function deleteData(objectNumericId) {
     const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "https://jsonplaceholder.typicode.com/posts/" + objectNumericId)
+    xhr.open("DELETE", "https://jsonplaceholder.typicode.com/posts/" + objectNumericId);
 
     xhr.onload = () => {
         if (xhr.readyState == 4 && xhr.status == "200") {
-            console.log(xhr.response);
+            console.log("Successful DELETE: ", xhr.response);
         } else {
             console.log(`Error: ${xhr.status}`);
         }
@@ -54,7 +54,32 @@ function deleteData(objectNumericId) {
 }
 
 
+// PUT data using XMLHttpRequest
+function putData(objectNumericId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", "https://jsonplaceholder.typicode.com/posts/" + objectNumericId);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+    const payload = JSON.stringify({
+        id: 7,
+        title: "ReShape",
+        body: "PUT Request",
+        userId: 7,
+    });
+
+    xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log("Successful PUT: ", JSON.parse(xhr.responseText));
+        } else {
+            console.log(`Error: ${xhr.status}`);
+        }
+    };
+    xhr.send(payload)
+}
+
+
 // Run functions
 getData();
 postData();
-deleteData(3);
+deleteData(7);
+putData(7);
