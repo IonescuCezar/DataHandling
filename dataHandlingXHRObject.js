@@ -78,8 +78,30 @@ function putData(objectNumericId) {
 }
 
 
+// PATCH data using XMLHttpRequest
+function patchData(objectNumericId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PATCH", "https://jsonplaceholder.typicode.com/posts/" + objectNumericId);
+    xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+
+    const payload = JSON.stringify({
+        body: "PATCH Request"
+    });
+
+    xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log("Successful PATCH: ", JSON.parse(xhr.responseText));
+        } else {
+            console.log(`Error: ${xhr.status}`);
+        }
+    };
+    xhr.send(payload);
+}
+
+
 // Run functions
 getData();
 postData();
 deleteData(7);
 putData(7);
+patchData(7);
