@@ -99,7 +99,7 @@ function deleteData(objectNumericId) {
 }
 
 
-// Run functions
+// Run function(s)
 getData();
 postData();
 putData(7);
