@@ -38,22 +38,6 @@ function postData() {
 }
 
 
-// DELETE data using XMLHttpRequest
-function deleteData(objectNumericId) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "https://jsonplaceholder.typicode.com/posts/" + objectNumericId);
-
-    xhr.onload = () => {
-        if (xhr.readyState == 4 && xhr.status == "200") {
-            console.log("Successful DELETE: ", xhr.response);
-        } else {
-            console.log(`Error: ${xhr.status}`);
-        }
-    };
-    xhr.send();
-}
-
-
 // PUT data using XMLHttpRequest
 function putData(objectNumericId) {
     const xhr = new XMLHttpRequest();
@@ -99,9 +83,31 @@ function patchData(objectNumericId) {
 }
 
 
+// DELETE data using XMLHttpRequest
+function deleteData(objectNumericId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "https://jsonplaceholder.typicode.com/posts/" + objectNumericId);
+
+    xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == "200") {
+            console.log("Successful DELETE: ", xhr.response);
+        } else {
+            console.log(`Error: ${xhr.status}`);
+        }
+    };
+    xhr.send();
+}
+
+
 // Run functions
 getData();
 postData();
-deleteData(7);
 putData(7);
 patchData(7);
+deleteData(7);
+
+
+// Obs: POST, PUT & PATCH
+// In practice, we use POST for CREATE operations (add a new resource),
+// PUT for UPDATE operations (completely modify an existing resource),
+// PATCH to apply partial modifications to a resource
